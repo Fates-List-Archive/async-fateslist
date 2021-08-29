@@ -1,3 +1,6 @@
+from __future__ import annotations
+
+import aiohttp
 
 class UserClient:
     def __init__(self, token: str):
