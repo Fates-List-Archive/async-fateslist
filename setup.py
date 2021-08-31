@@ -41,6 +41,7 @@ packages = [
     'async_fateslist'
     'async_fateslist.client',
     'async_fateslist.errors',
+    'async_fateslist.http_client',
     'async_fateslist.widgets'
 ]
 
