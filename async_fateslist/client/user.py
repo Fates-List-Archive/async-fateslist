@@ -11,6 +11,7 @@ class UserClient:
         API Docs: https://apidocs.fateslist.xyz
         Enum Reference: https://apidocs.fateslist.xyz/structures/enums.autogen
     '''
+    __slots__ = ['token', 'api_ver', 'beta', 'retry']
     
     def __init__(self, token: str, api_ver: Optional[int] = 2, beta: Optional[bool] = False, retry: Optional[bool] = False):
         if api_ver not in [2,3]:
@@ -19,6 +20,7 @@ class UserClient:
         self.api_ver = api_ver
         self.beta = beta
         self.retry = retry
+        self.formattedtoken = f'User {self.token}'
     
     def __str__(self):
         return '<Fates User-Client Connection>'
