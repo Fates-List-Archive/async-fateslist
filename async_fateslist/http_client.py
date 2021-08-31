@@ -21,6 +21,7 @@ class BaseHTTP:
         retry: bool = False
     ):
         """Makes a API request"""
+        if method.lower in ['post', 'get', 'patch', 'delete']
         headers = {} if not headers else headers
                 
         headers["authorization"] = self.api_token
@@ -28,7 +29,6 @@ class BaseHTTP:
         headers['FL-API-Version'] = self.ver
         
         async with aiohttp.ClientSession() as sess:
-            f = getattr(sess, method.lower())
-            async with f(f"{cfg.api}{endpoint}", headers = headers, json = json) as res:
+            async with sess.request() as res:
                 return APIResponse(res = res, json = json)
      
