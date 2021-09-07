@@ -48,7 +48,7 @@ setup(name=pakage_name,
       author='Dhruva Shaw',
       url='https://github.com/Fates-List/async-fateslist',
       project_urls={
-        "Documentation": "https://discordpy.readthedocs.io/en/latest/",
+        "Documentation": "https://apidocs.fateslist.xyz/",
         "Issue tracker": "https://github.com/Fates-List/async-fateslist/issues",
       },
       version=version,
