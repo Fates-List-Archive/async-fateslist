@@ -21,7 +21,7 @@ class BaseHTTP:
         retry: bool = False
     ):
         """Makes a API request"""
-        if method.lower in ['post', 'get', 'patch', 'delete', 'put', 'head']:
+        if method.lower() in ['post', 'get', 'patch', 'delete', 'put', 'head']:
             raise Exception #This will be custom exception
         headers = {} if not headers else headers
                 
