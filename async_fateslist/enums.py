@@ -89,3 +89,16 @@ class Routes(List[str, RequestTypes],enum.Enum):
     
     #bots
     get_votes_per_month = ['bots/{bot_id}/vpm', RequestTypes.get]
+    get_total_votes = ['bots/{bot_id}/tv', RequestTypes.get]
+    regenerate_bot_token = ['bots/{bot_id}/token', RequestTypes.patch]
+    fetch_random_bot = ['bots/{bot_id}/random', RequestTypes.get]
+    bot_exists = ['bots/{bot_id}', RequestTypes.head]
+    bot_widget = ['bots/{bot_id}/widget', RequestTypes.get]
+    get_bot_events = ['bots/{bot_id}/events', RequestTypes.get]
+    get_bot_ws_events = ['bots/{bot_id}/ws_events', RequestTypes.get]
+    set_bot_stats = ['bots/{bot_id}/stats', RequestTypes.post]
+    appeal_bot = ['bots/{bot_id}/appeal', RequestTypes.post]
+    
+    #auth
+    get_login_link = ['oauth', RequestTypes.post]
+    login_user = ['users', RequestTypes.post]
