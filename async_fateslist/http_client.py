@@ -1,31 +1,29 @@
 import aiohttp
-from typing import Optional
+from typing import Optional, Union
 from . import __version__
-from .enums import ApiVersion
+from .enums import ApiVersion, RequestTypes, Routes
 
 class BaseHTTP:    
     __slots__ = ['id', 'ver']
     
     def __init__(self, id, api_ver: Optional[int]):
         self.id = id
-        self.ver = api_ver or ApiVersion.current
+        self.ver = api_ver or ApiVersion.current.value
         self.user_agent = f"async_fateslist/{__version__}"       
     
     async def request(
         self, 
-        method: str, 
-        endpoint: str,
-        api_ver: int,
-        json: Optional[dict] = None, 
-        headers: Optional[dict] = None, 
+        method: RequestTypes, 
+        endpoint: Routes,
+        api_ver: Union[ApiVersion, int],
+        json: Optional[dict], 
+        headers: Optional[dict], 
         retry: bool = False
     ):
         """Makes a API request"""
-        if method.lower() in ['post', 'get', 'patch', 'delete', 'put', 'head']:
-            raise Exception #This will be custom exception
         headers = {} if not headers else headers
                 
-        headers["authorization"] = self.api_token
+        headers["Authorization"] = self.api_token
         headers["User-Agent"] = self.user_agent
         headers['FL-API-Version'] = self.ver
         

@@ -52,5 +52,40 @@ class Routes(List[str, RequestTypes],enum.Enum):
     check_staff_member = ['is_staff', RequestTypes.get]
     
     #users
-
+    fetch_user = ['users/{user_id}', RequestTypes.get]
+    set_user_description = ['users/{user_id}/description', RequestTypes.patch]
+    regenerate_user_token = ['users/{user_id}/token', RequestTypes.patch]
+    set_js_mode = ['users/{user_id}/js_allowed', RequestTypes.patch]
+    get_cache_user = ['users/{user_id}/obj', RequestTypes.get]
+    add_bot = ['users/{user_id}/bots/{bot_id}', RequestTypes.put]
+    delete_bot = ['users/{user_id}/bots/{bot_id}', RequestTypes.delete]
+    edit_bot = ['users/{user_id}/bots/{bot_id}', RequestTypes.patch]
     
+    #ula
+    get_list = ['ula/list/{url}', RequestTypes.get]
+    get_all_lists = ['ula/lists', RequestTypes.get]
+    new_list = ['ula/{user_id}/lists', RequestTypes.put]
+    delete_list = ['ula/{user_id}/list/{url}', RequestTypes.put]
+    edit_list = ['ula/{user_id}/list/{url}', RequestTypes.patch]
+    new_endpoint = ['ula/{user_id}/list/{url}/endpoints', RequestTypes.put]
+    edit_endpoint = ['ula/{user_id}/list/{url}/endpoints', RequestTypes.patch]
+    delete_endpoint = ['ula/{user_id}/list/{url}/endpoint/{feature}', RequestTypes.delete]
+    post_stats = ['ula/bots/{bot_id}/stats', RequestTypes.post]
+    get_bot = ['ula/bots/{bot_id}', RequestTypes.get]
+    get_user_voted = ['ula/bots/{bot_id}/votes/check', RequestTypes.post]
+    get_feature_by_id = ['ula/feature/{id}/id', RequestTypes.get]
+    get_feature_by_internal_name = ['ula/feature/{iname}/iname', RequestTypes.get]
+    
+    #reviews
+    get_bot_reviews = ['bots/{bot_id}/reviews', RequestTypes.get]
+    new_review = ['users/{user_id}/bots/{bot_id}/reviews', RequestTypes.post]
+    delete_review = ['users/{user_id}/bots/{bot_id}/reviews/{id}', RequestTypes.delete]
+    edit_review = ['users/{user_id}/bots/{bot_id}/reviews/{id}', RequestTypes.patch]
+    
+    #commands
+    get_commands = ['bots/{bot_id}/commands', RequestTypes.get]
+    add_command = ['bots/{bot_id}/commands', RequestTypes.post]
+    delete_command = ['bots/{bot_id}/commands/{id}', RequestTypes.delete]
+    
+    #bots
+    get_votes_per_month = ['bots/{bot_id}/vpm', RequestTypes.get]
