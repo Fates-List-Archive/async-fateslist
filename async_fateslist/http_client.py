@@ -3,6 +3,10 @@ from typing import Optional, Union
 from . import __version__
 from .enums import ApiVersion, RequestTypes, Routes
 
+import platform
+if int(platform.python_version().split('.')[1]) <= 8:
+    from typing import Dict
+
 class BaseHTTP:    
     __slots__ = ['id', 'ver']
     
