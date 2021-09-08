@@ -36,6 +36,9 @@ with open('README.rst') as f:
 
 extras_require = {
     'widgets': ['Pillow>=3.7'],
+    'speed': [
+        'orjson>=3.5.4',
+    ]
 }
 
 packages = [
