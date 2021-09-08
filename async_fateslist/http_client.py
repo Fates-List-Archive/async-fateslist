@@ -10,9 +10,9 @@ if int(platform.python_version().split('.')[1]) <= 8:
 class BaseHTTP:    
     __slots__ = ['id', 'ver']
     
-    def __init__(self, id, api_ver: Optional[int]):
+    def __init__(self, id, api_ver: Optional[Union[ApiVersion, int]]):
         self.id = id
-        self.ver = api_ver or ApiVersion.current.value
+        self.ver = api_ver or ApiVersion.current
         self.user_agent = f"async_fateslist/{__version__}"       
     
     async def request(
@@ -29,7 +29,7 @@ class BaseHTTP:
                 
         headers["Authorization"] = self.api_token
         headers["User-Agent"] = self.user_agent
-        headers['FL-API-Version'] = self.ver
+        headers['FL-API-Version'] = self.ver if isinstance(self.var, int) else self.ver.value
         
         async with aiohttp.ClientSession() as sess:
             async with sess.request() as res:
