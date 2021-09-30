@@ -31,7 +31,7 @@ class BaseHTTP:
         headers["User-Agent"] = self.user_agent
         headers['FL-API-Version'] = self.ver if isinstance(self.var, int) else self.ver.value
         
-        async with aiohttp.ClientSession() as session:
-            async with sess.request(str(method).upper(), f'https://fateslist.xyz/api/{str(endpoint)}',headers=headers,json=json) as response:
-                return await response
+        async with aiohttp.ClientSession() as sess:
+            async with sess.request() as res:
+                return APIResponse(res = res, json = json)
      
