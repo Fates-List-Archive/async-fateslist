@@ -1,8 +1,7 @@
 from __future__ import annotations
 
-import aiohttp
-from typing import Optional
-from ..errors import *
+from typing import Optional, Union
+from .. import *
 
 class UserClient:
     '''
@@ -13,14 +12,25 @@ class UserClient:
     '''
     __slots__ = ['token', 'api_ver', 'beta', 'retry']
     
-    def __init__(self, token: str, api_ver: Optional[int] = 2, beta: Optional[bool] = False, retry: Optional[bool] = False):
+    def __init__(self, token: str, api_ver: Optional[Union[ApiVersion, int]] = ApiVersion.current.value, beta: Optional[bool] = False, retry: Optional[bool] = False):
         if api_ver not in [2,3]:
             raise WrongApiVersionError
         self.token = token
-        self.api_ver = api_ver
+        self.api_ver = self.api_ver if isinstance(self.api_ver, int) else self.api_ver.value
         self.beta = beta
         self.retry = retry
         self.formattedtoken = f'User {self.token}'
     
     def __str__(self):
-        return '<Fates User-Client Connection>'
+        return f'<Fates User-Client Connection | API Version: {self.api_ver} | Beta: {self.beta} | Retry: {self.retry}>'
+
+    async def get_vanity(self, vanity: str) -> ToMoveAPIResponse:
+        return ToMoveAPIResponse(
+            await BaseHTTP(
+                api_token=self.formattedtoken, 
+                api_ver=self.api_ver
+            ).request(
+                method=Routes.vanity.value[-1], 
+                endpoint=Routes.vanity.value[0]
+            )
+        )

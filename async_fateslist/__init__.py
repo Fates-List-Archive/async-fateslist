@@ -1,5 +1,5 @@
 __title__ = 'async_fateslist'
-__author__ = 'Dhruva Shaw'
+__author__ = 'Dhruvacube'
 __license__ = 'GNU GENERAL PUBLIC LICENSE'
 __copyright__ = 'Copyright 2021-present FatesList'
 __version__ = '1.0.0candidate'
