@@ -11,7 +11,7 @@ if int(platform.python_version().split('.')[1]) <= 8:
     from typing import Dict
 
 class BaseHTTP:    
-    __slots__ = ['ver']
+    __slots__ = ['ver', "api_token", "user_agent"]
     
     def __init__(self, api_token, api_ver: Optional[Union[ApiVersion, int]]):
         self.api_token = api_token

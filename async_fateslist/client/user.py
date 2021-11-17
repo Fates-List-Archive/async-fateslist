@@ -10,7 +10,7 @@ class UserClient:
         API Docs: https://apidocs.fateslist.xyz
         Enum Reference: https://apidocs.fateslist.xyz/structures/enums.autogen
     '''
-    __slots__ = ['token', 'api_ver', 'beta', 'retry']
+    __slots__ = ['token', 'api_ver', 'beta', 'retry', "formattedtoken"]
     
     def __init__(self, token: str, api_ver: Optional[Union[ApiVersion, int]] = ApiVersion.current.value, beta: Optional[bool] = False, retry: Optional[bool] = False):
         if api_ver not in [2,3]:
