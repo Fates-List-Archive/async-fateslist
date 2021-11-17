@@ -8,6 +8,6 @@ class ToMoveAPIResponse:
     '''
     
     def __init__(self, request_return: Union[Awaitable, Coroutine]):
-        json = await request_return.json()
+        json = request_return.json()
         async for i in json:
             setattr(self, i, json[i])
