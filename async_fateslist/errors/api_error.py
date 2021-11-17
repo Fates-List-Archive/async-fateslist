@@ -9,7 +9,7 @@ class WrongApiVersionError:
 class RateLimited:
     __slots__ = ['status', 'retry_after', 'error']
     
-    async def __init__(self, request_obj: Coroutine, retry: bool = False):
+    def __init__(self, request_obj: Coroutine, retry: bool = False):
         self.request_obj = request_obj
         self.status: int = 429
         self.retry_after: int = None
