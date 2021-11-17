@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import aiohttp
 from typing import Optional, Union, Awaitable, Coroutine
 from . import __version__
