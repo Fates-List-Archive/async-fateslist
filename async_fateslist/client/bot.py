@@ -5,7 +5,7 @@ from .. import *
 
 from ..enums import ApiVersion, ReviewType
 from ..classes import ToMoveAPI
-from .widgets import Widgets
+from ..widgets import Widgets
 
 class BotClient:
     '''
