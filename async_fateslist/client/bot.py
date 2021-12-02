@@ -173,7 +173,7 @@ class BotClient:
                 api_ver=self.api_ver
             ).request(
                 method=Routes.add_promotion.value[-1], 
-                endpoint=Routes.add_promotion.value[0],
+                endpoint=Routes.add_promotion.value[0].format(bot_id=self.bot_id),
                 retry=self.retry,
                 json=promotion.to_dict()
             )
