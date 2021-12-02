@@ -6,6 +6,7 @@ from .. import *
 # For initial resolution
 from ..enums import ApiVersion, ReviewType
 from ..classes import ToMoveAPI
+from .widgets import Widgets
 
 class ServerClient:
     '''
