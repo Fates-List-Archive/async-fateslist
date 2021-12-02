@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from typing import Awaitable, Coroutine, Optional, Union, Callable
+import asyncio
 from .enums import *
 
 class ToMoveAPI:
@@ -10,6 +11,9 @@ class ToMoveAPI:
     
     def __init__(self, request_return: Union[Awaitable, Coroutine, Callable]):
         json = request_return.json()
+        asyncio.get_event_loop().run_until_complete(self._ainit(json))
+    
+    async def _ainit(self, json):
         async for i in json:
             setattr(self, i, json[i])
 
