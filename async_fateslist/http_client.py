@@ -6,7 +6,7 @@ from . import __version__
 from .enums import ApiVersion, RequestTypes, Routes
 
 class Success:
-    __slots__=['http_status','json']
+    __slots__=['http_status','json',"done","reason"]
     def __init__(self, done: Optional[str], reason: Optional[str], json: Optional[dict]):
         self.done = done
         self.reason = reason
