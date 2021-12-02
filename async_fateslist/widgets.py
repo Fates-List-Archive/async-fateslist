@@ -23,7 +23,7 @@ class Widgets:
     
     def url(self, opts: WidgetOptions):
         '''Returns the widget URL for this bot/server'''
-        return f"https://fateslist.xyz/{self.api_version}/widgets/{self.id}?{urlencode(opts.dict())}&target_type={self.target_type.value}"
+        return f"https://fateslist.xyz/{self.api_ver}/widgets/{self.id}?{urlencode(opts.dict())}&target_type={self.target_type.value}"
     
     async def download(self, opts: WidgetOptions) -> aiohttp.ClientResponse:
         '''
