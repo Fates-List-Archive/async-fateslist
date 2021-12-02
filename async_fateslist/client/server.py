@@ -27,4 +27,4 @@ class ServerClient:
     
     @property
     def server_widget(self):
-        raise NotImplemented
+        raise NotImplementedError
