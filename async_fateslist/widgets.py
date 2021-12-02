@@ -21,7 +21,7 @@ class Widgets:
     
     def widget_url(self, opts: WidgetOptions):
         '''Returns the widget URL for this bot/server'''
-        return f"https://fateslist.xyz/{self.api_version}/widgets/{self.id}?{urlencode(opts.dict()}&target_type={self.target_type}"
+        return f"https://fateslist.xyz/{self.api_version}/widgets/{self.id}?{urlencode(opts.dict())}&target_type={self.target_type}"
     
     def get_widget(self, opts: WidgetOptions) -> aiohttp.ClientResponse:
         '''
