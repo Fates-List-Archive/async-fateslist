@@ -3,7 +3,6 @@ from typing import List
 
 
 #ApiVersion Enums
-@enum.unique
 class ApiVersion(enum.IntEnum):
     current = 2
     default = current
