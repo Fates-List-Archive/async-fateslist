@@ -21,6 +21,7 @@ class ServerClient:
             raise WrongApiVersionError
         self.server_id = server_id
         self.token = token
+        self.api_ver = api_ver
         self.api_ver = self.api_ver if isinstance(self.api_ver, int) else self.api_ver.value
         self.beta = beta
         self.retry = retry
