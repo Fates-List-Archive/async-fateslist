@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from urllib.parse import urlencode
 import aiohttp
 from .http_client import BaseHTTP
-from .enums import ReviewType
+from .enums import ReviewType, RequestTypes
 
 class WidgetOptions(BaseModel):
     format: str = "png"
@@ -33,7 +33,7 @@ class Widgets:
             api_token="", 
             api_ver=self.api_ver
         ).request(
-            method="GET", 
+            method=RequestTypes.get, 
             endpoint=self.url(opts),
             retry=self.retry
         )
