@@ -37,7 +37,7 @@ class Widgets:
         Note that no_cache is slow and may lead to ratelimits and/or your got being banned if used excessively
         '''
         return await BaseHTTP(
-                api_token=self.formattedtoken, 
+                api_token="", 
                 api_ver=self.api_ver
             ).request(
                 method="GET", 
