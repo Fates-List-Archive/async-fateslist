@@ -22,7 +22,7 @@ class RequestTypes(enum.IntEnum):
     
 #Routes
 @enum.unique
-class Routes(List[str, RequestTypes],enum.Enum):
+class Routes(Tuple[str, RequestTypes],enum.Enum):
     #To Move
     vanity = ['code/{vanity}', RequestTypes.get]
     index = ['index', RequestTypes.get]
