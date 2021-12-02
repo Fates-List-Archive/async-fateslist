@@ -3,6 +3,10 @@ from __future__ import annotations
 from typing import Optional, Union
 from .. import *
 
+# For initial resolution
+from ..enums import ApiVersion
+from ..classes import ToMoveAPI
+
 class UserClient:
     '''
     Current API: v2 beta 3
