@@ -18,7 +18,7 @@ class Promotion:
     '''
     The promotion object for https://fateslist.xyz/api/docs/redoc#tag/API-v2-Promotions
     '''
-    __slots__=['json', "title", "info", "css", "type"]
+    __slots__=['json', ]
     
     def __init__(self, title:Optional[str], info: Optional[str], css:Optional[str], type_enum:Optional[PromotionType], json: Optional[dict]) -> None:
         self.title = title
