@@ -26,13 +26,12 @@ class RequestTypes(enum.IntEnum):
 @enum.unique
 class Routes(List[str, RequestTypes],enum.Enum):
     #To Move
-    vote_review = ['bots/{bot_id}/reviews/{rid}/votes', RequestTypes.patch]
     vanity = ['code/{vanity}', RequestTypes.get]
     index = ['index', RequestTypes.get]
     search_list = ['search', RequestTypes.get]
     
     #promotions
-    promotions = ['bots/{bot_id}/promotions', RequestTypes.get]
+    get_promotions = ['bots/{bot_id}/promotions', RequestTypes.get]
     add_promotion = ['bots/{bot_id}/promotions', RequestTypes.post]
     delete_promotion = ['bots/{bot_id}/promotions/{id}', RequestTypes.delete]
     edit_promotion = ['bots/{bot_id}/promotions/{id}', RequestTypes.patch]
@@ -45,6 +44,7 @@ class Routes(List[str, RequestTypes],enum.Enum):
     user_votes = ['users/{user_id}/bots/{bot_id}/votes', RequestTypes.get]
     create_vote = ['users/{user_id}/bots/{bot_id}/votes', RequestTypes.patch]
     send_test_webhook = ['bots/{bot_id}/testhook', RequestTypes.post]
+    vote_review = ['bots/{bot_id}/reviews/{rid}/votes', RequestTypes.patch]
     
     #System
     get_botlist_stats = ['blstats', RequestTypes.get]

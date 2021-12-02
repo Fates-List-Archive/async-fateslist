@@ -109,8 +109,8 @@ class UserClient:
                 api_token=self.formattedtoken, 
                 api_ver=self.api_ver
             ).request(
-                method=Routes.index.value[-1], 
-                endpoint=Routes.index.value[0],
+                method=Routes.search_list.value[-1], 
+                endpoint=Routes.search_list.value[0],
                 retry=retry,
                 json={'q': query, 'target_type': target_type}
             )

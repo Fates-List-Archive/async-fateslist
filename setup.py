@@ -38,7 +38,13 @@ extras_require = {
     'widgets': ['Pillow>=3.7'],
     'speed': [
         'orjson>=3.5.4',
+        'uvloop==0.16.0; sys_platform != "win32"'
+    ],
+    'docs': [
+        'mkdocs>=1.2.3',
+        'mkdocs-material>=8.0.2'
     ]
+    
 }
 
 packages = [

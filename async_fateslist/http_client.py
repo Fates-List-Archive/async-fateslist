@@ -5,10 +5,40 @@ from typing import Optional, Union, Awaitable, Coroutine
 from . import __version__
 from .enums import ApiVersion, RequestTypes, Routes
 
+class Success:
+    __slots__=['done', 'reason', 'http_status','json']
+    def __init__(self, done: Optional[str], reason: Optional[str], json: Optional[dict]):
+        self.done = done
+        self.reason = reason
+        self.http_status = 200
+        self.json = json
+    
+    @classmethod
+    def dict_to_object(self):
+        if self.json:
+            self.done = self.json.get('done')
+            self.reason = self.json.get('reason')
+            return self
+        raise LookupError('No json data was gicen')
+    
+    @classmethod
+    def to_dict(self):
+        """Converts this embed object into a dict."""
+        result = {
+            key[1:]: getattr(self, key)
+            for key in self.__slots__
+            if key[0] == '_' and hasattr(self, key)
+        }
+        try:
+            colour = result.pop('json')
+        except KeyError:
+            pass
+        return result 
 
-import platform
-if int(platform.python_version().split('.')[1]) <= 8:
-    from typing import Dict
+
+class Error:
+    pass
+
 
 class BaseHTTP:    
     __slots__ = ['ver', "api_token", "user_agent"]

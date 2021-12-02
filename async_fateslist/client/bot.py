@@ -11,11 +11,12 @@ class BotClient:
         API Docs: https://apidocs.fateslist.xyz
         Enum Reference: https://apidocs.fateslist.xyz/structures/enums.autogen/
     '''
-    __slots__ = ['token', 'api_ver', 'beta', 'retry', "formattedtoken"]
+    __slots__ = ['token', 'bot_id','api_ver', 'beta', 'retry', "formattedtoken"]
     
-    def __init__(self, token: str, api_ver: Optional[Union[ApiVersion, int]] = ApiVersion.current.value, beta: Optional[bool] = False, retry: Optional[bool] = False):
+    def __init__(self, bot_id: int,token: str, api_ver: Optional[Union[ApiVersion, int]] = ApiVersion.current.value, beta: Optional[bool] = False, retry: Optional[bool] = False):
         if api_ver not in [2,3]:
             raise WrongApiVersionError
+        self.bot_id = bot_id
         self.token = token
         self.api_ver = self.api_ver if isinstance(self.api_ver, int) else self.api_ver.value
         self.beta = beta
@@ -23,7 +24,7 @@ class BotClient:
         self.formattedtoken = f'Bot {self.token}'
     
     def __str__(self):
-        return f'<Fates Bot-Client Connection | API Version: {self.api_ver} | Beta: {self.beta} | Retry: {self.retry}>'
+        return f'<Fates Bot-Client Connection| Bot ID: {self.bot_id} | API Version: {self.api_ver} | Beta: {self.beta} | Retry: {self.retry}>'
     
     async def get_vanity(self, vanity: str) -> ToMoveAPI:
         '''
@@ -48,7 +49,7 @@ class BotClient:
             ).request(
                 method=Routes.vanity.value[-1], 
                 endpoint=Routes.vanity.value[0].formet(vanity=vanity),
-                retry=retry
+                retry=self.retry
             )
         )
     
@@ -80,7 +81,7 @@ class BotClient:
             ).request(
                 method=Routes.index.value[-1], 
                 endpoint=Routes.index.value[0],
-                retry=retry,
+                retry=self.retry,
                 json={'cert': cert, 'type_enum': type_enum}
             )
         )
@@ -110,11 +111,69 @@ class BotClient:
                 api_token=self.formattedtoken, 
                 api_ver=self.api_ver
             ).request(
-                method=Routes.index.value[-1], 
-                endpoint=Routes.index.value[0],
-                retry=retry,
+                method=Routes.search_list.value[-1], 
+                endpoint=Routes.search_list.value[0],
+                retry=self.retry,
                 json={'q': query, 'target_type': target_type}
             )
         )
     
+    @classmethod
+    async def get_promotion(self) -> Promotion:
+        '''
+        Returns all the promotions for a bot on Fates List
+
+        PATH PARAMETERS
+            bot_id [required] : integer (Bot Id)
+        Responses
+            200 Successful Response
+                RESPONSE SCHEMA: application/json
+                    promotions [required] : Array of objects (BotPromotionList)
+
+            422 Validation Error
+                RESPONSE SCHEMA: application/json
+                    detail : Array of objects (Detail)
+        '''
+        data = await BaseHTTP(
+                api_token=self.formattedtoken, 
+                api_ver=self.api_ver
+            ).request(
+                method=Routes.get_promotions.value[-1], 
+                endpoint=Routes.get_promotions.value[0].format(bot_id=self.bot_id),
+                retry=self.retry,
+            )
+        for i in data:
+            yield Promotion(json=i).dict_to_object()
     
+    async def new_promotion(self, promotion: Promotion) -> Union[Success, Error]:
+        '''
+        Creates a promotion for a bot. Type can be 1 for announcement, 2 for promotion or 3 for generic
+
+        AUTHORIZATIONS:
+            Bot
+        PATH PARAMETERS
+            bot_id [required] : integer (Bot Id)
+        REQUEST BODY SCHEMA: application/json
+            title [required] : string (Title)
+            info [required] : string (Info)
+            css	: string (Css)
+            type [required] : integer (PromotionType) (Enum: 0 1 2) An enumeration.
+
+        Responses
+            200 Successful Response
+                RESPONSE SCHEMA: application/json
+                    done [required] : boolean (Done)
+                    reason	: string (Reason)
+            422 Validation Error
+                RESPONSE SCHEMA: application/json
+                    detail : Array of objects (Detail)
+        '''
+        return await BaseHTTP(
+                api_token=self.formattedtoken, 
+                api_ver=self.api_ver
+            ).request(
+                method=Routes.add_promotion.value[-1], 
+                endpoint=Routes.add_promotion.value[0],
+                retry=self.retry,
+                json=promotion.to_dict()
+            )
