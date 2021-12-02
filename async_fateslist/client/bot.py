@@ -9,7 +9,7 @@ class BotClient:
     Current API: v2 beta 3
         Default API: v2
         API Docs: https://apidocs.fateslist.xyz
-        Enum Reference: https://apidocs.fateslist.xyz/structures/enums.autogen
+        Enum Reference: https://apidocs.fateslist.xyz/structures/enums.autogen/
     '''
     __slots__ = ['token', 'api_ver', 'beta', 'retry', "formattedtoken"]
     
@@ -25,7 +25,7 @@ class BotClient:
     def __str__(self):
         return f'<Fates Bot-Client Connection | API Version: {self.api_ver} | Beta: {self.beta} | Retry: {self.retry}>'
     
-    async def get_vanity(self, vanity: str) -> ToMoveAPIResponse:
+    async def get_vanity(self, vanity: str) -> ToMoveAPI:
         '''
         Get Vanity
         
@@ -41,23 +41,24 @@ class BotClient:
                 RESPONSE SCHEMA: application/json
                     detail : Array of objects (Detail)
         '''
-        return ToMoveAPIResponse(
+        return ToMoveAPI(
             await BaseHTTP(
                 api_token=self.formattedtoken, 
                 api_ver=self.api_ver
             ).request(
                 method=Routes.vanity.value[-1], 
-                endpoint=Routes.vanity.value[0]
+                endpoint=Routes.vanity.value[0].formet(vanity=vanity),
+                retry=retry
             )
         )
     
-    async def get_index(self, cert: bool, t:str  = "bots" or "profile") -> ToMoveAPIResponse:
+    async def get_index(self, cert: bool = True, type_enum:int  = 0) -> ToMoveAPI:
         '''
         Get Index
         For any potential Android/iOS app, crawlers etc.
 
         QUERY PARAMETERS
-        t [string (T)] | Default: "bots"
+        t [int (T)] | Default: 0 (0/1)
         cert [boolean (Cert)] | Default: true
         
         Responses
@@ -72,17 +73,19 @@ class BotClient:
                 RESPONSE SCHEMA: application/json
                     detail : Array of objects (Detail)
         '''
-        return ToMoveAPIResponse(
+        return ToMoveAPI(
             await BaseHTTP(
                 api_token=self.formattedtoken, 
                 api_ver=self.api_ver
             ).request(
                 method=Routes.index.value[-1], 
-                endpoint=Routes.index.value[0]
+                endpoint=Routes.index.value[0],
+                retry=retry,
+                json={'cert': cert, 'type_enum': type_enum}
             )
         )
     
-    async def search_list(self, query:str, t:str = "bots" or "profile") -> ToMoveAPIResponse:
+    async def search_list(self, query:str, target_type:str = "bots" or "profile") -> ToMoveAPI:
         '''
         Search List
         For any potential Android/iOS app, crawlers etc. Q is the query to search for. T is either bots or profiles
@@ -102,12 +105,16 @@ class BotClient:
                 RESPONSE SCHEMA: application/json
                     detail : Array of objects (Detail)
         '''
-        return ToMoveAPIResponse(
+        return ToMoveAPI(
             await BaseHTTP(
                 api_token=self.formattedtoken, 
                 api_ver=self.api_ver
             ).request(
                 method=Routes.index.value[-1], 
-                endpoint=Routes.index.value[0]
+                endpoint=Routes.index.value[0],
+                retry=retry,
+                json={'q': query, 'target_type': target_type}
             )
         )
+    
+    

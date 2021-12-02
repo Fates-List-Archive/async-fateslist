@@ -2,6 +2,7 @@ import enum
 from typing import List
 
 
+#ApiVersion Enums
 @enum.unique
 class ApiVersion(enum.IntEnum):
     current = 2
@@ -10,6 +11,7 @@ class ApiVersion(enum.IntEnum):
     deprecated = 1
 
 
+#Request Types
 @enum.unique
 class RequestTypes(enum.IntEnum):
     delete = 0
@@ -20,8 +22,7 @@ class RequestTypes(enum.IntEnum):
     post = 5
 
 
-
-
+#Routes
 @enum.unique
 class Routes(List[str, RequestTypes],enum.Enum):
     #To Move
@@ -102,3 +103,11 @@ class Routes(List[str, RequestTypes],enum.Enum):
     #auth
     get_login_link = ['oauth', RequestTypes.post]
     login_user = ['users', RequestTypes.post]
+
+
+#Promotions
+@enum.unique
+class PromotionType(enum.IntEnum):
+    announcement = 0
+    promotion = 1
+    generic = 2
