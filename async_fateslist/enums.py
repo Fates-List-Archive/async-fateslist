@@ -20,8 +20,7 @@ class RequestTypes(enum.IntEnum):
     patch = 3
     put = 4
     post = 5
-
-
+    
 #Routes
 @enum.unique
 class Routes(List[str, RequestTypes],enum.Enum):
@@ -111,3 +110,9 @@ class PromotionType(enum.IntEnum):
     announcement = 0
     promotion = 1
     generic = 2
+
+# Internal review type enum
+@enum.unique
+class ReviewType(enum.IntEnum):
+    bot = 0
+    server = 1
