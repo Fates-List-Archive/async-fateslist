@@ -4,7 +4,7 @@ from typing import Optional, Union
 from .. import *
 
 # For initial resolution
-from ..enums import ApiVersion
+from ..enums import ApiVersion, ReviewType
 from ..classes import ToMoveAPI
 
 class ServerClient:
@@ -25,10 +25,7 @@ class ServerClient:
         self.beta = beta
         self.retry = retry
         self.formattedtoken = f'Server {self.token}'
+        self.widgets = Widgets(id=server_id, api_ver=self.api_ver, target_type=ReviewType.server)
     
     def __str__(self):
         return f'<Fates Server-Client Connection| Server ID: {self.server_id} | API Version: {self.api_ver} | Beta: {self.beta} | Retry: {self.retry}>'
-    
-    @property
-    def server_widget(self):
-        raise NotImplementedError
