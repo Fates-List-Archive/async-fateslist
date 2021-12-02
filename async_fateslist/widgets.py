@@ -19,11 +19,11 @@ class Widgets:
         self.api_version = api_version
         self.retry = True
     
-    def widget_url(self, opts: WidgetOptions):
+    def url(self, opts: WidgetOptions):
         '''Returns the widget URL for this bot/server'''
         return f"https://fateslist.xyz/{self.api_version}/widgets/{self.id}?{urlencode(opts.dict())}&target_type={self.target_type}"
     
-    def get_widget(self, opts: WidgetOptions) -> aiohttp.ClientResponse:
+    def download(self, opts: WidgetOptions) -> aiohttp.ClientResponse:
         '''
         Get Widget
 
@@ -44,7 +44,7 @@ class Widgets:
                 api_ver=self.api_ver
             ).request(
                 method="GET", 
-                endpoint=self.widget_url(opts),
+                endpoint=self.url(opts),
                 retry=self.retry
             )
         )
