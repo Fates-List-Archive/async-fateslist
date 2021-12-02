@@ -14,7 +14,7 @@ class BotClient:
         API Docs: https://apidocs.fateslist.xyz
         Enum Reference: https://apidocs.fateslist.xyz/structures/enums.autogen/
     '''
-    __slots__ = ['token', 'bot_id','api_ver', 'beta', 'retry', "formattedtoken"]
+    __slots__ = ['token', 'bot_id','api_ver', 'beta', 'retry', "formattedtoken", 'widgets']
     
     def __init__(self, bot_id: int, token: Optional[str] = "", api_ver: Optional[Union[ApiVersion, int]] = ApiVersion.current.value, beta: Optional[bool] = False, retry: Optional[bool] = False):
         if api_ver not in [2,3]:
