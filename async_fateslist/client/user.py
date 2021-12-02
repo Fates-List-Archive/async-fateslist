@@ -20,6 +20,7 @@ class UserClient:
         if api_ver not in [2,3]:
             raise WrongApiVersionError
         self.token = token
+        self.api_ver = api_ver
         self.api_ver = self.api_ver if isinstance(self.api_ver, int) else self.api_ver.value
         self.beta = beta
         self.retry = retry
