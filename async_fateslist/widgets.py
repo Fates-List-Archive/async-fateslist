@@ -1,6 +1,7 @@
 from __future__ import annotations
 from pydantic import BaseModel
 from urllib.parse import urlencode
+import aiohttp
 
 class WidgetOptions(BaseModel):
     format: str = "png"
@@ -16,11 +17,13 @@ class Widgets:
         self.id = id
         self.target_type = target_type
         self.api_version = api_version
+        self.retry = True
     
     def widget_url(self, opts: WidgetOptions):
+        '''Returns the widget URL for this bot/server'''
         return f"https://fateslist.xyz/{self.api_version}?{urlencode(opts.dict()}"
     
-    def get_widget(self, opts: WidgetOptions):
+    def get_widget(self, opts: WidgetOptions) -> aiohttp.ClientResponse:
         '''
         Get Widget
 
