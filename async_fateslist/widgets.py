@@ -15,10 +15,10 @@ class Widgets:
         self.id = id
         self.target_type = target_type
     
-    def widget_url(opts: WidgetOptions):
+    def widget_url(self, opts: WidgetOptions):
         return
     
-    def get_widget(self, format: str = "png", cd: str = "", full_desc: bool = False, no_cache: bool = True):
+    def get_widget(self, opts: WidgetOptions):
         '''
         Get Widget
 
@@ -39,7 +39,7 @@ class Widgets:
                 api_ver=self.api_ver
             ).request(
                 method="GET", 
-                endpoint=self.widget_url(format, cd, full_desc, no_cache),
+                endpoint=self.widget_url(opts),
                 retry=self.retry
             )
         )
