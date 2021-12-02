@@ -1,5 +1,6 @@
 from __future__ import annotations
 from pydantic import BaseModel
+from urllib.parse import urlencode
 
 class WidgetOptions(BaseModel):
     format: str = "png"
@@ -11,12 +12,13 @@ class WidgetOptions(BaseModel):
         
 class Widgets:
     '''This class is made for you when you setup async-fateslist'''
-    def __init__(self, id: int, target_type: int):
+    def __init__(self, id: int, target_type: int, api_version: int):
         self.id = id
         self.target_type = target_type
+        self.api_version = api_version
     
     def widget_url(self, opts: WidgetOptions):
-        return
+        return f"https://fateslist.xyz/{self.api_version}?{urlencode(opts.dict()}"
     
     def get_widget(self, opts: WidgetOptions):
         '''
