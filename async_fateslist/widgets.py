@@ -27,7 +27,6 @@ class Widgets:
         '''
         Downloads a widget
         '''
-        
         return await BaseHTTP(
             api_token="", 
             api_ver=self.api_ver
