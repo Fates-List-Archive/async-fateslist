@@ -3,9 +3,9 @@ from __future__ import annotations
 from typing import Optional, Union
 from .. import *
 
-# For initial resolution
 from ..enums import ApiVersion, ReviewType
 from ..classes import ToMoveAPI
+from .widgets import Widgets
 
 class BotClient:
     '''
