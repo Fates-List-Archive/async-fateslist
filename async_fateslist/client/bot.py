@@ -21,6 +21,7 @@ class BotClient:
             raise WrongApiVersionError
         self.bot_id = bot_id
         self.token = token
+        self.api_ver = api_ver
         self.api_ver = self.api_ver if isinstance(self.api_ver, int) else self.api_ver.value
         self.beta = beta
         self.retry = retry
