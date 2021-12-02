@@ -13,7 +13,7 @@ class BotClient:
     '''
     __slots__ = ['token', 'bot_id','api_ver', 'beta', 'retry', "formattedtoken"]
     
-    def __init__(self, bot_id: int,token: str, api_ver: Optional[Union[ApiVersion, int]] = ApiVersion.current.value, beta: Optional[bool] = False, retry: Optional[bool] = False):
+    def __init__(self, bot_id: int, token: Optional[str] = "", api_ver: Optional[Union[ApiVersion, int]] = ApiVersion.current.value, beta: Optional[bool] = False, retry: Optional[bool] = False):
         if api_ver not in [2,3]:
             raise WrongApiVersionError
         self.bot_id = bot_id
@@ -22,6 +22,7 @@ class BotClient:
         self.beta = beta
         self.retry = retry
         self.formattedtoken = f'Bot {self.token}'
+        self.widgets = Widgets(id=bot_id, api_ver=self.api_ver, target_type=ReviewType.bot)
     
     def __str__(self):
         return f'<Fates Bot-Client Connection| Bot ID: {self.bot_id} | API Version: {self.api_ver} | Beta: {self.beta} | Retry: {self.retry}>'
