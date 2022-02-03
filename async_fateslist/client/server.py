@@ -32,3 +32,42 @@ class ServerClient:
     
     def __str__(self):
         return f'<Fates Server-Client Connection| Server ID: {self.server_id} | API Version: {self.api_ver} | Beta: {self.beta} | Retry: {self.retry}>'
+    
+    async def privacy_policy(self) -> GeneralJsonOnlyClass:
+        '''Returns the privacy policy for fates list as a JSON'''
+        return GeneralJsonOnlyClass(
+            await BaseHTTP(
+                api_token=self.formattedtoken, 
+                api_ver=self.api_ver
+            ).request(
+                method=Routes.privacy_policy.value[-1], 
+                endpoint=Routes.privacy_policy.value[0],
+                retry=self.retry,
+            )
+        )
+    
+    async def rules(self) -> GeneralJsonOnlyClass:
+        '''Returns the rules for fates list as a JSON'''
+        return GeneralJsonOnlyClass(
+            await BaseHTTP(
+                api_token=self.formattedtoken, 
+                api_ver=self.api_ver
+            ).request(
+                method=Routes.rules.value[-1], 
+                endpoint=Routes.rules.value[0],
+                retry=self.retry,
+            )
+        )
+    
+    async def all_policies(self) -> GeneralJsonOnlyClass:
+        '''Returns the all policies for fates list as a JSON'''
+        return GeneralJsonOnlyClass(
+            await BaseHTTP(
+                api_token=self.formattedtoken, 
+                api_ver=self.api_ver
+            ).request(
+                method=Routes.all_policies.value[-1], 
+                endpoint=Routes.all_policies.value[0],
+                retry=self.retry,
+            )
+        )

@@ -82,10 +82,6 @@ class Routes(Tuple[str, RequestTypes],enum.Enum):
     get_bot_ws_events = ['bots/{bot_id}/ws_events', RequestTypes.get]
     set_bot_stats = ['bots/{bot_id}/stats', RequestTypes.post]
     appeal_bot = ['bots/{bot_id}/appeal', RequestTypes.post]
-    
-    #auth
-    get_login_link = ['oauth', RequestTypes.post]
-    login_user = ['users', RequestTypes.post]
 
 
 #Promotions

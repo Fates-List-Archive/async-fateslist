@@ -6,7 +6,7 @@ from ..errors import WrongApiVersionError
 from ..enums import ApiVersion, ReviewType, Routes
 from ..classes import GeneralJsonOnlyClass, Promotion, GeneralClass
 from ..widgets import Widgets
-from ..http_client import BaseHTTP
+from ..http_client import BaseHTTP, Error, Success
 
 class BotClient:
     '''
@@ -184,5 +184,41 @@ class BotClient:
                 json=promotion.to_dict()
             )
     
-    async def privacy_policy(self) -> GeneralClass:
-        None
+    async def privacy_policy(self) -> GeneralJsonOnlyClass:
+        '''Returns the privacy policy for fates list as a JSON'''
+        return GeneralJsonOnlyClass(
+            await BaseHTTP(
+                api_token=self.formattedtoken, 
+                api_ver=self.api_ver
+            ).request(
+                method=Routes.privacy_policy.value[-1], 
+                endpoint=Routes.privacy_policy.value[0],
+                retry=self.retry,
+            )
+        )
+    
+    async def rules(self) -> GeneralJsonOnlyClass:
+        '''Returns the rules for fates list as a JSON'''
+        return GeneralJsonOnlyClass(
+            await BaseHTTP(
+                api_token=self.formattedtoken, 
+                api_ver=self.api_ver
+            ).request(
+                method=Routes.rules.value[-1], 
+                endpoint=Routes.rules.value[0],
+                retry=self.retry,
+            )
+        )
+    
+    async def all_policies(self) -> GeneralJsonOnlyClass:
+        '''Returns the all policies for fates list as a JSON'''
+        return GeneralJsonOnlyClass(
+            await BaseHTTP(
+                api_token=self.formattedtoken, 
+                api_ver=self.api_ver
+            ).request(
+                method=Routes.all_policies.value[-1], 
+                endpoint=Routes.all_policies.value[0],
+                retry=self.retry,
+            )
+        )

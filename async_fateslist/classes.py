@@ -3,10 +3,6 @@ from __future__ import annotations
 from typing import Awaitable, Coroutine, Optional, Union, Callable
 import asyncio
 from .enums import *
-
-class GeneralClass:
-    def __init__(self, request_return: Union[Awaitable, Callable, Coroutine]):
-        json = request_return.json()
         
 class GeneralJsonOnlyClass:
     '''
