@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 from typing import Optional, Union
-from .. import *
+from ..errors import WrongApiVersionError
 
 # For initial resolution
-from ..enums import ApiVersion
-from ..classes import ToMoveAPI
+from ..enums import ApiVersion, Routes
+from ..classes import GeneralJsonOnlyClass
+from ..http_client import BaseHTTP
 
 class UserClient:
     '''
@@ -29,7 +30,7 @@ class UserClient:
     def __str__(self):
         return f'<Fates User-Client Connection | API Version: {self.api_ver} | Beta: {self.beta} | Retry: {self.retry}>'
 
-    async def get_vanity(self, vanity: str) -> ToMoveAPI:
+    async def get_vanity(self, vanity: str) -> GeneralJsonOnlyClass:
         '''
         Get Vanity
         
@@ -45,18 +46,18 @@ class UserClient:
                 RESPONSE SCHEMA: application/json
                     detail : Array of objects (Detail)
         '''
-        return ToMoveAPI(
+        return GeneralJsonOnlyClass(
             await BaseHTTP(
                 api_token=self.formattedtoken, 
                 api_ver=self.api_ver
             ).request(
                 method=Routes.vanity.value[-1], 
                 endpoint=Routes.vanity.value[0].formet(vanity=vanity),
-                retry=retry
+                retry=self.retry
             )
         )
     
-    async def get_index(self, cert: bool = True, type_enum:int  = 0) -> ToMoveAPI:
+    async def get_index(self, cert: bool = True, type_enum:int  = 0) -> GeneralJsonOnlyClass:
         '''
         Get Index
         For any potential Android/iOS app, crawlers etc.
@@ -77,19 +78,19 @@ class UserClient:
                 RESPONSE SCHEMA: application/json
                     detail : Array of objects (Detail)
         '''
-        return ToMoveAPI(
+        return GeneralJsonOnlyClass(
             await BaseHTTP(
                 api_token=self.formattedtoken, 
                 api_ver=self.api_ver
             ).request(
                 method=Routes.index.value[-1], 
                 endpoint=Routes.index.value[0],
-                retry=retry,
+                retry=self.retry,
                 json={'cert': cert, 'type_enum': type_enum}
             )
         )
     
-    async def search_list(self, query:str, target_type:str = "bots" or "profile") -> ToMoveAPI:
+    async def search_list(self, query:str, target_type:str = "bots" or "profile") -> GeneralJsonOnlyClass:
         '''
         Search List
         For any potential Android/iOS app, crawlers etc. Q is the query to search for. T is either bots or profiles
@@ -109,14 +110,14 @@ class UserClient:
                 RESPONSE SCHEMA: application/json
                     detail : Array of objects (Detail)
         '''
-        return ToMoveAPI(
+        return GeneralJsonOnlyClass(
             await BaseHTTP(
                 api_token=self.formattedtoken, 
                 api_ver=self.api_ver
             ).request(
                 method=Routes.search_list.value[-1], 
                 endpoint=Routes.search_list.value[0],
-                retry=retry,
+                retry=self.retry,
                 json={'q': query, 'target_type': target_type}
             )
         )

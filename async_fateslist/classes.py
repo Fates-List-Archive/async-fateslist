@@ -4,18 +4,22 @@ from typing import Awaitable, Coroutine, Optional, Union, Callable
 import asyncio
 from .enums import *
 
-class ToMoveAPI:
+class GeneralClass:
+    def __init__(self, request_return: Union[Awaitable, Callable, Coroutine]):
+        json = request_return.json()
+        
+class GeneralJsonOnlyClass:
     '''
     This creates a class with attributes as stated in the json for the ToMove response.
     '''
     
     def __init__(self, request_return: Union[Awaitable, Coroutine, Callable]):
         json = request_return.json()
-        asyncio.get_event_loop().run_until_complete(self._ainit(json))
+    #     asyncio.get_event_loop().run_until_complete(self._ainit(json))
     
-    async def _ainit(self, json):
-        async for i in json:
-            setattr(self, i, json[i])
+    # async def _ainit(self, json):
+    #     async for i in json:
+    #         setattr(self, i, json[i])
 
 
 class Promotion:

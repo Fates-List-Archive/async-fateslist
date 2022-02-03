@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 from typing import Optional, Union
-from .. import *
+from ..errors import WrongApiVersionError
 
-from ..enums import ApiVersion, ReviewType
-from ..classes import ToMoveAPI
+from ..enums import ApiVersion, ReviewType, Routes
+from ..classes import GeneralJsonOnlyClass, Promotion, GeneralClass
 from ..widgets import Widgets
+from ..http_client import BaseHTTP
 
 class BotClient:
     '''
@@ -31,7 +32,7 @@ class BotClient:
     def __str__(self):
         return f'<Fates Bot-Client Connection| Bot ID: {self.bot_id} | API Version: {self.api_ver} | Beta: {self.beta} | Retry: {self.retry}>'
     
-    async def get_vanity(self, vanity: str) -> ToMoveAPI:
+    async def get_vanity(self, vanity: str) -> GeneralJsonOnlyClass:
         '''
         Get Vanity
         
@@ -47,7 +48,7 @@ class BotClient:
                 RESPONSE SCHEMA: application/json
                     detail : Array of objects (Detail)
         '''
-        return ToMoveAPI(
+        return GeneralJsonOnlyClass(
             await BaseHTTP(
                 api_token=self.formattedtoken, 
                 api_ver=self.api_ver
@@ -58,7 +59,7 @@ class BotClient:
             )
         )
     
-    async def get_index(self, cert: bool = True, type_enum:int  = 0) -> ToMoveAPI:
+    async def get_index(self, cert: bool = True, type_enum:int  = 0) -> GeneralJsonOnlyClass:
         '''
         Get Index
         For any potential Android/iOS app, crawlers etc.
@@ -79,7 +80,7 @@ class BotClient:
                 RESPONSE SCHEMA: application/json
                     detail : Array of objects (Detail)
         '''
-        return ToMoveAPI(
+        return GeneralJsonOnlyClass(
             await BaseHTTP(
                 api_token=self.formattedtoken, 
                 api_ver=self.api_ver
@@ -91,7 +92,7 @@ class BotClient:
             )
         )
     
-    async def search_list(self, query:str, target_type:str = "bots" or "profile") -> ToMoveAPI:
+    async def search_list(self, query:str, target_type:str = "bots" or "profile") -> GeneralJsonOnlyClass:
         '''
         Search List
         For any potential Android/iOS app, crawlers etc. Q is the query to search for. T is either bots or profiles
@@ -111,7 +112,7 @@ class BotClient:
                 RESPONSE SCHEMA: application/json
                     detail : Array of objects (Detail)
         '''
-        return ToMoveAPI(
+        return GeneralJsonOnlyClass(
             await BaseHTTP(
                 api_token=self.formattedtoken, 
                 api_ver=self.api_ver
@@ -182,3 +183,6 @@ class BotClient:
                 retry=self.retry,
                 json=promotion.to_dict()
             )
+    
+    async def privacy_policy(self) -> GeneralClass:
+        None

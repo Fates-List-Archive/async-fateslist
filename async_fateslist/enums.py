@@ -23,7 +23,6 @@ class RequestTypes(enum.IntEnum):
 #Routes
 @enum.unique
 class Routes(Tuple[str, RequestTypes],enum.Enum):
-    #To Move
     vanity = ['code/{vanity}', RequestTypes.get]
     index = ['index', RequestTypes.get]
     search_list = ['search', RequestTypes.get]
@@ -37,6 +36,7 @@ class Routes(Tuple[str, RequestTypes],enum.Enum):
     #Policies
     privacy_policy = ['policies/privacy', RequestTypes.get]
     rules = ['policies/rules', RequestTypes.get]
+    all_policies = ['policies/all', RequestTypes.get]
     
     #Votes
     user_votes = ['users/{user_id}/bots/{bot_id}/votes', RequestTypes.get]

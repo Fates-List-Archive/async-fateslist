@@ -5,8 +5,9 @@ from .. import *
 
 # For initial resolution
 from ..enums import ApiVersion, ReviewType
-from ..classes import ToMoveAPI
+from ..classes import GeneralJsonOnlyClass
 from ..widgets import Widgets
+from ..errors import WrongApiVersionError
 
 class ServerClient:
     '''
